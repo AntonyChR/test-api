@@ -1,0 +1,26 @@
+.page{
+    height: 100vh;
+    display: grid;
+    grid-template-areas: 
+        "editor history"
+        "viewer history"
+    ;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: max-content 1fr;
+    gap: 1rem;
+    margin: 1rem;
+    div{
+        outline: 1px solid black;
+        overflow: hidden;
+    }
+}
+
+.requestEditor{
+    grid-area: editor;
+}
+.requestHistory{
+    grid-area: history;
+}
+.responseViewer{
+    grid-area: viewer;
+}
