@@ -3,20 +3,22 @@ export interface RequestState extends RequestStateMethods, RequestStatePropertie
 
 export interface RequestStateMethods {
     setLoading: Function;
+    setResponse: Function;
+    addRequestToHistory: Function;
 }
 
 export interface RequestStateProperties{
-    requestHistory: IRequest[] | null;
-    request: IRequest;
+    requestHistory: IResponse[] | [];
+    request: IResponse;
+    loading:boolean;
 }
 
-export interface IRequest{
-    status       : Number,
+export interface IResponse{
+    status       : Number | null,
     responseData : any,
     method       : HTTPMethod,
     requestStatus: 'success' | 'error' | null,
-    loading      : boolean, 
-    responseTimeInSeconds: Number,
+    responseTimeInMiliseconds: Number | null,
 }
 
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';

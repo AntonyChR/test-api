@@ -1,31 +1,40 @@
-import { FC, ReactNode, useReducer } from "react"
+import { FC, ReactNode, useEffect, useReducer } from "react"
 import { RequestContext } from "./"
 import { requestReducer } from "./"
 import { RequestStateProperties } from "./"
+import { IResponse } from "./types"
 
 interface RequestProviderProps{
     children: ReactNode
 }
 
 const INITIAL_STATE = {
-    requestHistory: null,
+    requestHistory: [],
+    loading      : false, 
     request:{
-        status       : 200,
+        status       : null,
         responseData : null,
         method       : 'GET',
         requestStatus: null,
-        loading      : false, 
-        responseTimeInSeconds: 0,
+        responseTimeInMiliseconds: null,
     }
 }
 export const RequestProvider:FC<RequestProviderProps> = ({children}) => {
     const [state, dispatch] = useReducer(requestReducer, INITIAL_STATE as RequestStateProperties);
 
-    function setLoading (){
-
+    function setLoading (isLoading:boolean){
+        dispatch({type:'[Request] change loading', payload:isLoading})
     }
+    function setResponse(r:IResponse){
+        dispatch({type:'[Request] set response', payload:r})
+    }
+
+    function addRequestToHistory(r:IResponse){
+        dispatch({type:'[History] add request', payload:r})
+    }
+
     return (
-        <RequestContext.Provider value={{...state, setLoading}}>
+        <RequestContext.Provider value={{...state, setLoading, setResponse, addRequestToHistory}}>
             {children}
         </RequestContext.Provider>
     )

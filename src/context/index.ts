@@ -1,4 +1,5 @@
 export * from './RequestContext'
 export * from './requestReducer'
 export * from './RequestProvider'
+export * from './actionTypes'
 export * from './types'

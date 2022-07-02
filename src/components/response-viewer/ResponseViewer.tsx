@@ -1,24 +1,19 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { RequestContext } from "../../context";
+import classes from './ResponseViewer.module.scss';
 interface ResponseViewerProps{
     className: string;
 }
 export const ResponseViewer:FC<ResponseViewerProps> = ({className}) => {
-    const data = {
-        data: {
-            id: 2,
-            email: 'janet.weaver@reqres.in',
-            first_name: 'Janet',
-            last_name: 'Weaver',
-            avatar: 'https://reqres.in/img/faces/2-image.jpg',
-        },
-        support: {
-            url: 'https://reqres.in/#support-heading',
-            text: 'To keep ReqRes free, contributions towards server costs are appreciated!',
-        },
-    };
+    const {loading,request} = useContext(RequestContext);
     return (
-        <div className={`${className}`}>
-            <pre>{JSON.stringify(data, null, 2)}</pre>;
+        <div className={`${className} ${classes.responseViewer}`}>
+            {!loading && 
+            <>
+                <h3><>status: {request.status}, time:{request.responseTimeInMiliseconds}ms</></h3>
+                <pre className={classes.pre}>{JSON.stringify(request.responseData, null, 2)}</pre>
+            </>
+            }
         </div>
     );
 };
