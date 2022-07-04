@@ -11,6 +11,13 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+li{
+  list-style: none;
+}
+input{
+  outline: none;
+  border-style: none;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -1,5 +1,5 @@
-import { FC, useContext, useEffect, useState } from 'react';
-import { HTTPMethod, RequestContext } from '../../context';
+import { FC, useContext, useEffect, useRef } from 'react';
+import { RequestContext } from '../../context';
 import { makeRequest } from '../../helpers';
 import classes from './RequestEditor.module.scss';
 
@@ -9,40 +9,37 @@ interface RequestEditorProps {
 
 export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
 
-    const {setLoading, setResponse,loading, addRequestToHistory} = useContext(RequestContext);
-    const [requestConfig, setRequestConfig] = useState<{
-        method: HTTPMethod;
-        url: string;
-    }>({ method: 'GET', url: '' });
-
-    const onChangeRequestConfig = (event:any) => {
-        const {id, value} = event.target;
-        setRequestConfig({...requestConfig, [id]:value})
-    }
+    const {setLoading, loading,setFinishedRequest,request } = useContext(RequestContext);
+    const methodRef = useRef<HTMLSelectElement>(null);
+    const urlRef    = useRef<HTMLInputElement>(null);
 
     const onSubmit = async (event:any) => {
         event.preventDefault();
+        const method = event.target[0].value;
+        const url    = event.target[1].value;
+        if(!url)return;
         setLoading(true);
-        const reponse =await makeRequest(requestConfig);  
-        setLoading(false);    
-        setResponse(reponse);
-        addRequestToHistory(reponse);
+        const response =await makeRequest({method,url});  
+        setFinishedRequest(response)
     }
     useEffect(()=>{
-        console.log(loading)
-    },[loading])
+        if(methodRef.current && urlRef.current){
+            methodRef.current.value=request.method
+            urlRef.current.value=request.url
+        }
+    },[request])
     return (
-        <div className={`${className} ${classes.requestEditor}`}>
+        <section className={`${className} ${classes.requestEditor}`}>
             <form defaultValue='GET' onSubmit={onSubmit} className={classes.form}>
-                <select id='method' value={requestConfig.method} onChange={onChangeRequestConfig}>
+                <select id='method' defaultValue='GET' ref={methodRef}>
                     <option value='GET'>GET</option>
                     <option value='POST'>POST</option>
                     <option value='PUT'>PUT</option>
                     <option value='DELETE'>DELETE</option>
                 </select>
-                <input id='url' type='url' placeholder='URL: http://www.example.com' onChange={onChangeRequestConfig} />
+                <input id='url' required placeholder='URL: http://httpstat.us/200?sleep=1000' ref={urlRef}/>
                 <button type='submit' disabled={loading}>Send</button>
             </form>
-        </div>
+        </section>
     );
 };

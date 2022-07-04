@@ -5,6 +5,7 @@ export interface RequestStateMethods {
     setLoading: Function;
     setResponse: Function;
     addRequestToHistory: Function;
+    setFinishedRequest: Function;
 }
 
 export interface RequestStateProperties{
@@ -14,11 +15,15 @@ export interface RequestStateProperties{
 }
 
 export interface IResponse{
+    url          : string;
     status       : Number | null,
     responseData : any,
     method       : HTTPMethod,
-    requestStatus: 'success' | 'error' | null,
+    statusText: StatusText,
     responseTimeInMiliseconds: Number | null,
+    requestTime: string;
+
 }
+export type StatusText = 'success' | 'error' | string;
 
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
