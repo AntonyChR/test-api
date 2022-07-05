@@ -37,7 +37,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
                     <option value='PUT'>PUT</option>
                     <option value='DELETE'>DELETE</option>
                 </select>
-                <input id='url' required placeholder='URL: http://httpstat.us/200?sleep=1000' ref={urlRef}/>
+                <input id='url' required placeholder='URL: ' ref={urlRef}/>
                 <button type='submit' disabled={loading}>Send</button>
             </form>
         </section>

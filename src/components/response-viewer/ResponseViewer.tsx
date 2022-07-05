@@ -6,38 +6,31 @@ interface ResponseViewerProps {
 }
 export const ResponseViewer: FC<ResponseViewerProps> = ({ className }) => {
     const { loading, request } = useContext(RequestContext);
-    function stringify(){
-        return JSON.stringify(request.responseData, null, 2);
-    }
-    function copyResponseToClipboard(){
-        navigator.clipboard.writeText(stringify())
+    const stringify = () => JSON.stringify(request.responseData, null, 2);
+    function copyResponseToClipboard() {
+        navigator.clipboard.writeText(stringify());
     }
     return (
         <section className={`${className} ${classes.responseViewer}`}>
             {!loading && (
                 <>
-                    <h3>
+                    <h3 className={classes.statusBar}>
                         <>
-                            status: {request.status}, time:
-                            {request.responseTimeInMiliseconds}ms
-                        </>{' '}
+                            status: {request.status} | time:{' '}
+                            {request.responseTimeInMiliseconds}ms{' '}
+                        </>
+                    </h3>
+                    <div className={classes.dataWrapper}>
+                        <pre className={classes.data}>{stringify()}</pre>
                         <span
-                            style={{
-                                outline: '1px solid grey',
-                                borderRadius: '5px',
-                                float:'right'
-                            }}
+                            className={classes.copy}
                             onClick={copyResponseToClipboard}
                         >
                             copy
                         </span>
-                    </h3>
-                    <pre className={classes.pre}>
-                        {stringify()}
-                    </pre>
+                    </div>
                 </>
             )}
         </section>
     );
 };
-

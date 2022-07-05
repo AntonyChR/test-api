@@ -1,8 +1,24 @@
 .requestEditor{
-    height: 100%;
 }
 
 .form{
     display: grid;
     grid-template-columns: max-content 1fr max-content;
+    :nth-child(n){
+        height: 2rem;
+    }
+
+}
+.form > input{
+    padding-left: 1rem;
+}
+
+
+.form > select{
+    border-radius: 10px 0px 0px 10px;
+}
+.form > button{
+    border-radius: 0px 10px 10px 0px;
+    cursor: pointer;
+    padding: 0 .4rem;
 }

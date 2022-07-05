@@ -1,6 +1,5 @@
 export interface RequestState extends RequestStateMethods, RequestStateProperties {}
 
-
 export interface RequestStateMethods {
     setLoading: Function;
     setResponse: Function;

@@ -17,10 +17,14 @@ export const RequestHistory: FC<RequestHistoryProps> = ({ className }) => {
                         onClick={() => setResponse(request)}
                         className={`${classes.item} ${classes.tooltip}`}
                     >
+                        <>
                             {request.method}:{request.status} time:{' '}
                             {request.responseTimeInMiliseconds}ms status:{' '}
                             {request.statusText}
-                            <span className={classes.tooltiptext}>{request.url}</span>
+                            <span className={classes.tooltiptext}>
+                                {request.url}
+                            </span>
+                        </>
                     </li>
                 ))}
             </ul>
