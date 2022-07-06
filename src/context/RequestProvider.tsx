@@ -38,7 +38,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         dispatch({ type: '[History] add request', payload: r });
     }
 
-    function setFinishedRequest(r: IResponse) {
+    function setRequestFinished(r: IResponse) {
         dispatch({
             type: '[State] finished request',
             payload: { laoding: false, response: r },
@@ -54,7 +54,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
                 setLoading,
                 setResponse,
                 addRequestToHistory,
-                setFinishedRequest,
+                setRequestFinished,
             }}
         >
             {children}

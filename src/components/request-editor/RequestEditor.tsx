@@ -8,37 +8,48 @@ interface RequestEditorProps {
 }
 
 export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
-
-    const {setLoading, loading,setFinishedRequest,request } = useContext(RequestContext);
+    const { setLoading, loading, setRequestFinished, request } =
+        useContext(RequestContext);
     const methodRef = useRef<HTMLSelectElement>(null);
-    const urlRef    = useRef<HTMLInputElement>(null);
+    const urlRef = useRef<HTMLInputElement>(null);
 
-    const onSubmit = async (event:any) => {
+    const onSubmit = async (event: any) => {
         event.preventDefault();
         const method = event.target[0].value;
-        const url    = event.target[1].value;
-        if(!url)return;
+        const url = event.target[1].value;
+        if (!url) return;
         setLoading(true);
-        const response =await makeRequest({method,url});  
-        setFinishedRequest(response)
-    }
-    useEffect(()=>{
-        if(methodRef.current && urlRef.current){
-            methodRef.current.value=request.method
-            urlRef.current.value=request.url
+        const response = await makeRequest({ method, url });
+        setRequestFinished(response);
+    };
+    useEffect(() => {
+        if (methodRef.current && urlRef.current) {
+            methodRef.current.value = request.method;
+            urlRef.current.value = request.url;
         }
-    },[request])
+    }, [request]);
     return (
         <section className={`${className} ${classes.requestEditor}`}>
-            <form defaultValue='GET' onSubmit={onSubmit} className={classes.form}>
+            <form
+                defaultValue='GET'
+                onSubmit={onSubmit}
+                className={classes.form}
+            >
                 <select id='method' defaultValue='GET' ref={methodRef}>
                     <option value='GET'>GET</option>
                     <option value='POST'>POST</option>
                     <option value='PUT'>PUT</option>
                     <option value='DELETE'>DELETE</option>
                 </select>
-                <input id='url' required placeholder='URL: ' ref={urlRef}/>
-                <button type='submit' disabled={loading}>Send</button>
+                <input
+                    id='url'
+                    required
+                    placeholder='url: http://localhost:3000'
+                    ref={urlRef}
+                />
+                <button type='submit' disabled={loading}>
+                    Send
+                </button>
             </form>
         </section>
     );

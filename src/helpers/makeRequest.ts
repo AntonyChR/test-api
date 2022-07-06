@@ -6,23 +6,24 @@ function handleErrors(response: Response) {
     }
     return response;
 }
-export async function makeRequest(requestConfig: { method: HTTPMethod, url: string }): Promise<IResponse> {
-    const { method, url } = requestConfig;
+export async function makeRequest({ method, url }: { method: HTTPMethod, url: string }): Promise<IResponse> {
     const date = new Date();
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
 
     const start = performance.now()
-    const resp = await fetch(url, { method });
+    const response = await fetch(url, { method });
+    const response2 =  await response.clone().text();
+    
     const end = performance.now();
-
+    
     const responseTimeInMiliseconds = Math.floor(end - start);
-
-    const statusText = resp.statusText || (resp.ok? 'success': 'error')
+    
+    const statusText = response.statusText || (response.ok? 'success': 'error')
     let data=null;
     try{
-        data = (resp.ok)? await resp.json() :null;
+        data = (response.ok)? await response.json() :null;
     }catch(error){
 
     }
@@ -35,7 +36,7 @@ export async function makeRequest(requestConfig: { method: HTTPMethod, url: stri
         statusText,
         responseData: data,
         responseTimeInMiliseconds,
-        status: resp.status
+        status: response.status
     };
 
 }

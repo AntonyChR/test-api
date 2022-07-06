@@ -4,7 +4,7 @@ export interface RequestStateMethods {
     setLoading: Function;
     setResponse: Function;
     addRequestToHistory: Function;
-    setFinishedRequest: Function;
+    setRequestFinished: Function;
 }
 
 export interface RequestStateProperties{

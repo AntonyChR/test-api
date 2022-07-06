@@ -8,8 +8,8 @@ interface RequestHistoryProps {
 export const RequestHistory: FC<RequestHistoryProps> = ({ className }) => {
     const { requestHistory, setResponse } = useContext(RequestContext);
     return (
-        <section className={`${className}`}>
-            <h2>History</h2>
+        <section className={`${className} ${classes.wrapper}`}>
+            <h2 className={classes.title}>History</h2>
             <ul className={classes.list}>
                 {requestHistory?.map((request, index) => (
                     <li
