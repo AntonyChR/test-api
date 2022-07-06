@@ -13,14 +13,9 @@ body {
 li{
   list-style: none;
 }
-input{
+input, select{
   outline: none;
   border-style: none;
-}
-
-select{
-  outline: none;
-  border: none;
 }
 
 button{
