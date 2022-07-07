@@ -45,16 +45,28 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         });
     }
 
+    const abortController = new AbortController();
+
+    function abortRequest(){
+        abortController.abort();
+        dispatch({
+            type:'[Request] change loading',
+            payload: false
+        })
+    }
+
     return (
         <RequestContext.Provider
             value={{
                 ...state,
+                abortController,
 
                 //methods
                 setLoading,
                 setResponse,
                 addRequestToHistory,
                 setRequestFinished,
+                abortRequest
             }}
         >
             {children}

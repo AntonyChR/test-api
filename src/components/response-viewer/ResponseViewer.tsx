@@ -6,13 +6,14 @@ interface ResponseViewerProps {
     className: string;
 }
 export const ResponseViewer: FC<ResponseViewerProps> = ({ className }) => {
-    const { loading, request } = useContext(RequestContext);
-    const {alertState, hideAlert, alertInfo} = useAlert();
+    const { loading, request, abortRequest } = useContext(RequestContext);
+    const { alertState, hideAlert, alertInfo } = useAlert();
     const stringify = () => JSON.stringify(request.responseData, null, 2);
     function copyResponseToClipboard() {
         alertInfo('Response data copied to clipboard');
         navigator.clipboard.writeText(stringify());
     }
+
     return (
         <section className={`${className} ${classes.responseViewer}`}>
             {!loading && (

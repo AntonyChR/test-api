@@ -5,12 +5,14 @@ export interface RequestStateMethods {
     setResponse: Function;
     addRequestToHistory: Function;
     setRequestFinished: Function;
+    abortRequest: Function;
 }
 
 export interface RequestStateProperties{
     requestHistory: IResponse[] | [];
     request: IResponse;
     loading:boolean;
+    abortController: AbortController;
 }
 
 export interface IResponse{

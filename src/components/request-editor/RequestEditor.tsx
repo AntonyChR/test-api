@@ -8,7 +8,7 @@ interface RequestEditorProps {
 }
 
 export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
-    const { setLoading, loading, setRequestFinished, request } =
+    const { setLoading, loading, setRequestFinished, request, abortController } =
         useContext(RequestContext);
     const methodRef = useRef<HTMLSelectElement>(null);
     const urlRef = useRef<HTMLInputElement>(null);
@@ -19,7 +19,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
         const url = event.target[1].value;
         if (!url) return;
         setLoading(true);
-        const response = await makeRequest({ method, url });
+        const response = await makeRequest({ method, url, abortController });
         setRequestFinished(response);
     };
     useEffect(() => {
@@ -44,7 +44,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
                 <input
                     id='url'
                     required
-                    placeholder='url: http://localhost:3000'
+                    placeholder='url: www.example.com'
                     ref={urlRef}
                 />
                 <button type='submit' disabled={loading}>
