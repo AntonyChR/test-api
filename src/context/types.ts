@@ -25,6 +25,6 @@ export interface IResponse{
     requestTime: string;
 
 }
-export type StatusText = 'success' | 'error' | string;
+export type StatusText = 'success' | 'error' | 'canceled' | string;
 
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';

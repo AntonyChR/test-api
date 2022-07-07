@@ -18,7 +18,7 @@ const INITIAL_STATE = {
         method: 'GET',
         statusText: '',
         responseTimeInMiliseconds: null,
-        requestTime:''
+        requestTime: '',
     },
 };
 export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
@@ -27,8 +27,8 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         INITIAL_STATE as RequestStateProperties
     );
 
-    function setLoading(isLoading: boolean) {
-        dispatch({ type: '[Request] change loading', payload: isLoading });
+    function setLoading(url: string) {
+        dispatch({ type: '[Request] loading', payload: url });
     }
     function setResponse(r: IResponse) {
         dispatch({ type: '[Request] set response', payload: r });
@@ -47,12 +47,11 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
 
     const abortController = new AbortController();
 
-    function abortRequest(){
+    function abortRequest() {
         abortController.abort();
         dispatch({
-            type:'[Request] change loading',
-            payload: false
-        })
+            type: '[Request] cancel request',
+        });
     }
 
     return (
@@ -66,7 +65,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
                 setResponse,
                 addRequestToHistory,
                 setRequestFinished,
-                abortRequest
+                abortRequest,
             }}
         >
             {children}
