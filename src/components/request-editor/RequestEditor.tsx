@@ -18,7 +18,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
         const method = event.target[0].value;
         const url = event.target[1].value;
         if (!url) return;
-        setLoading(true);
+        setLoading(url);
         const response = await makeRequest({ method, url, abortController });
         setRequestFinished(response);
     };
