@@ -1,6 +1,8 @@
 import { HTTPMethod, IResponse, StatusText } from "../context";
 
-export async function makeRequest(requestConfig: { method: HTTPMethod, url: string, abortController:AbortController }): Promise<IResponse> {
+interface RequestConfig { method: HTTPMethod, url: string, abortController: AbortController }
+
+export async function makeRequest(requestConfig: RequestConfig): Promise<IResponse> {
     const { method, url, abortController } = requestConfig;
     const date = new Date();
     const hours = date.getHours();
@@ -8,7 +10,7 @@ export async function makeRequest(requestConfig: { method: HTTPMethod, url: stri
     const seconds = date.getSeconds();
 
     const start = performance.now()
-    const response = await fetch(url, { method, signal:abortController.signal });
+    const response = await fetch(url, { method, signal: abortController.signal });
     const responseText = await response.clone().text();
     const end = performance.now();
 
