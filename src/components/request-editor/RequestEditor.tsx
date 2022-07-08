@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useRef } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { RequestContext } from '../../context';
 
 import classes from './RequestEditor.module.scss';
@@ -10,9 +10,13 @@ interface RequestEditorProps {
 export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
     const {  loading, request, makeRequest} =
         useContext(RequestContext);
-    const methodRef = useRef<HTMLSelectElement>(null);
-    const urlRef = useRef<HTMLInputElement>(null);
 
+    const [requestConfig, setRequestConfig] = useState({url:'',method:'GET'});
+    const handleChange = (event: any) => {
+        const id = event.target.id;
+        const value = event.target.value;
+        setRequestConfig({...requestConfig, [id]:value})
+    }
     const onSubmit = async (event: any) => {
         event.preventDefault();
         const method = event.target[0].value;
@@ -22,10 +26,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
     };
 
     useEffect(() => {
-        if (methodRef.current && urlRef.current) {
-            methodRef.current.value = request.method;
-            urlRef.current.value = request.url;
-        }
+        setRequestConfig({url:request.url,method:request.method})
     }, [request]);
     return (
         <section className={`${className} ${classes.requestEditor}`}>
@@ -34,17 +35,19 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
                 onSubmit={onSubmit}
                 className={classes.form}
             >
-                <select id='method' defaultValue='GET' ref={methodRef}>
+                <select onChange={handleChange} id='method' value={requestConfig.method} defaultValue='GET'>
                     <option value='GET'>GET</option>
                     <option value='POST'>POST</option>
                     <option value='PUT'>PUT</option>
                     <option value='DELETE'>DELETE</option>
                 </select>
                 <input
+                    onChange={handleChange}
                     id='url'
+                    value={requestConfig.url}
                     required
+                    autoFocus
                     placeholder='url: www.example.com'
-                    ref={urlRef}
                 />
                 <button type='submit' disabled={loading}>
                     Send

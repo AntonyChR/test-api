@@ -1,5 +1,4 @@
 import { FC, ReactNode, useEffect, useReducer } from 'react';
-import { getCurrentTime } from '../helpers';
 import { useFetch } from '../hooks';
 import { RequestContext } from './';
 import { requestReducer } from './';

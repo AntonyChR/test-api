@@ -5,7 +5,7 @@ import { RequestStateProperties } from "./types";
 export function requestReducer(state: RequestStateProperties, action: RequestActionTypes): RequestStateProperties {
     switch (action.type) {
         case '[Request] start':
-            return { ...state, loading: true, request: { ...state.request, url: action.payload } };
+            return { ...state, loading: true};
         case '[Request] set response':
             return { ...state, request: action.payload, loading:false };
         case '[History] add request':

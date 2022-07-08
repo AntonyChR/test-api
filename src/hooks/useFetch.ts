@@ -17,8 +17,6 @@ export const useFetch = () => {
         const end = performance.now();
 
         const responseText = await response.clone().text();
-        console.log(responseText);
-        
 
         const responseTimeInMiliseconds = Math.floor(end - start);
 
