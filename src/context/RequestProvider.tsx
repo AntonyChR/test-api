@@ -1,5 +1,6 @@
 import { FC, ReactNode, useEffect, useReducer } from 'react';
 import { getCurrentTime } from '../helpers';
+import { useFetch } from '../hooks';
 import { RequestContext } from './';
 import { requestReducer } from './';
 import { RequestStateProperties } from './';
@@ -32,57 +33,34 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         dispatch({ type: '[Request] set response', payload: r });
     }
 
+    function addRequestToHistory(r:IResponse){
+        dispatch({type: '[History] add request', payload:r})
+    }
+
+    const startRequest = (url: string) =>
+        dispatch({ type: '[Request] start', payload: url });
+
+    const { runRequest, abortController } = useFetch();
     function abortRequest() {
+        abortController?.abort();
         dispatch({
             type: '[Request] cancel request',
         });
     }
 
-    const startRequest = (url:string) => dispatch({type:'[Request] start', payload:url})
-
-
-
-    async function makeRequest (url:string, method:HTTPMethod){
+    async function makeRequest(url:string, method:HTTPMethod) {
         startRequest(url);
-        const requestTime = getCurrentTime();
-        const start = performance.now()
-        const response = await fetch(url, {
-            method
-        });
-        const responseText = await response.clone().text();
-        const end = performance.now();
-    
-        const responseTimeInMiliseconds = Math.floor(end - start);
-    
-        const statusText = response.statusText || (response.ok ? 'success' : 'error')
-        let data = null;
-    
-        try {
-            data = (response.ok) ? await response.json() : null;
-        } catch (error) {
-            if (data === null && responseText) {
-                data = responseText;
-            }
-        }
-
-        setResponse ({
-            requestTime,
-            url,
-            method,
-            statusText,
-            responseData: data,
-            responseTimeInMiliseconds,
-            status: response.status
-        });
-
+        const response = await runRequest(url, method);
+        setResponse(response);  
+        addRequestToHistory(response);                      
     }
-
     return (
         <RequestContext.Provider
             value={{
                 ...state,
 
                 //methods
+                setResponse,
                 makeRequest,
                 abortRequest,
             }}

@@ -3,6 +3,7 @@ export interface RequestState extends RequestStateMethods, RequestStatePropertie
 export interface RequestStateMethods {
     abortRequest: Function;
     makeRequest: Function;
+    setResponse: Function;
 }
 
 export interface RequestStateProperties{
