@@ -1,11 +1,8 @@
 export interface RequestState extends RequestStateMethods, RequestStateProperties {}
 
 export interface RequestStateMethods {
-    setLoading: Function;
-    setResponse: Function;
-    addRequestToHistory: Function;
-    setRequestFinished: Function;
     abortRequest: Function;
+    makeRequest: Function;
 }
 
 export interface RequestStateProperties{

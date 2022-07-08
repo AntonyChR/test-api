@@ -1,1 +1,1 @@
-export * from './makeRequest'
+export * from './getCurrentTime'

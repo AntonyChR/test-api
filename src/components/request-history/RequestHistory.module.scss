@@ -1,5 +1,6 @@
 
 .wrapper{
+    overflow: hidden;
 }
 .title{
     font-size: 1.3rem;
@@ -7,6 +8,11 @@
     margin: .5rem 0;
 }
 
+.listWrapper{
+    padding: .5rem;
+    height: 100%;
+    overflow: scroll;
+}
 .list {
     display: grid;
     row-gap: .5rem;
@@ -48,7 +54,7 @@
 
     /* Fade in tooltip */
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.1s;
 }
 
 /* Tooltip arrow */

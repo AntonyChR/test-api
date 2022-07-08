@@ -1,8 +1,9 @@
 import { FC, ReactNode, useEffect, useReducer } from 'react';
+import { getCurrentTime } from '../helpers';
 import { RequestContext } from './';
 import { requestReducer } from './';
 import { RequestStateProperties } from './';
-import { IResponse } from './types';
+import { HTTPMethod, IResponse } from './types';
 
 interface RequestProviderProps {
     children: ReactNode;
@@ -27,44 +28,62 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         INITIAL_STATE as RequestStateProperties
     );
 
-    function setLoading(url: string) {
-        dispatch({ type: '[Request] loading', payload: url });
-    }
     function setResponse(r: IResponse) {
         dispatch({ type: '[Request] set response', payload: r });
     }
 
-    function addRequestToHistory(r: IResponse) {
-        dispatch({ type: '[History] add request', payload: r });
-    }
-
-    function setRequestFinished(r: IResponse) {
-        dispatch({
-            type: '[State] finished request',
-            payload: { laoding: false, response: r },
-        });
-    }
-
-    const abortController = new AbortController();
-
     function abortRequest() {
-        abortController.abort();
         dispatch({
             type: '[Request] cancel request',
         });
+    }
+
+    const startRequest = (url:string) => dispatch({type:'[Request] start', payload:url})
+
+
+
+    async function makeRequest (url:string, method:HTTPMethod){
+        startRequest(url);
+        const requestTime = getCurrentTime();
+        const start = performance.now()
+        const response = await fetch(url, {
+            method
+        });
+        const responseText = await response.clone().text();
+        const end = performance.now();
+    
+        const responseTimeInMiliseconds = Math.floor(end - start);
+    
+        const statusText = response.statusText || (response.ok ? 'success' : 'error')
+        let data = null;
+    
+        try {
+            data = (response.ok) ? await response.json() : null;
+        } catch (error) {
+            if (data === null && responseText) {
+                data = responseText;
+            }
+        }
+
+        setResponse ({
+            requestTime,
+            url,
+            method,
+            statusText,
+            responseData: data,
+            responseTimeInMiliseconds,
+            status: response.status
+        });
+
     }
 
     return (
         <RequestContext.Provider
             value={{
                 ...state,
-                abortController,
 
                 //methods
-                setLoading,
-                setResponse,
-                addRequestToHistory,
-                setRequestFinished,
+                makeRequest,
                 abortRequest,
             }}
         >

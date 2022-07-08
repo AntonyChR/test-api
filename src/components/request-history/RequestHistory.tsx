@@ -10,24 +10,26 @@ export const RequestHistory: FC<RequestHistoryProps> = ({ className }) => {
     return (
         <section className={`${className} ${classes.wrapper}`}>
             <h2 className={classes.title}>History</h2>
-            <ul className={classes.list}>
-                {requestHistory?.map((request, index) => (
-                    <li
-                        key={`${request.method} ${index}`}
-                        onClick={() => setResponse(request)}
-                        className={`${classes.item} ${classes.tooltip}`}
-                    >
-                        <>
-                            {request.method}:{request.status} time:{' '}
-                            {request.responseTimeInMiliseconds}ms status:{' '}
-                            {request.statusText}
-                            <span className={classes.tooltiptext}>
-                                {request.url}
-                            </span>
-                        </>
-                    </li>
-                ))}
-            </ul>
+            <div className={classes.listWrapper}>
+                <ul className={classes.list}>
+                    {requestHistory?.map((request, index) => (
+                        <li
+                            key={`${request.method} ${index}`}
+                            onClick={() => setResponse(request)}
+                            className={`${classes.item} ${classes.tooltip}`}
+                        >
+                            <>
+                                {request.method}:{request.status} time:{' '}
+                                {request.responseTimeInMiliseconds}ms status:{' '}
+                                {request.statusText}
+                                <span className={classes.tooltiptext}>
+                                    {request.url}
+                                </span>
+                            </>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </section>
     );
 };

@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useRef } from 'react';
 import { RequestContext } from '../../context';
-import { makeRequest } from '../../helpers';
+
 import classes from './RequestEditor.module.scss';
 
 interface RequestEditorProps {
@@ -8,7 +8,7 @@ interface RequestEditorProps {
 }
 
 export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
-    const { setLoading, loading, setRequestFinished, request, abortController } =
+    const {  loading, request, makeRequest} =
         useContext(RequestContext);
     const methodRef = useRef<HTMLSelectElement>(null);
     const urlRef = useRef<HTMLInputElement>(null);
@@ -18,10 +18,9 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
         const method = event.target[0].value;
         const url = event.target[1].value;
         if (!url) return;
-        setLoading(url);
-        const response = await makeRequest({ method, url, abortController });
-        setRequestFinished(response);
+        await makeRequest(url, method)
     };
+
     useEffect(() => {
         if (methodRef.current && urlRef.current) {
             methodRef.current.value = request.method;
