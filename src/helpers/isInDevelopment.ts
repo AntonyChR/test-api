@@ -1,0 +1,1 @@
+export const isInDevelopment = import.meta.env.DEV;
