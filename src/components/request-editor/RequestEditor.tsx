@@ -14,7 +14,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
     const { formValues, handleChange, setFormValues } = useForm<{
         url: string;
         method: HTTPMethod;
-    }>({ url: '', method: 'GET' }, true);
+    }>({ url: '', method: 'GET' });
 
     const onSubmit = async (event: any) => {
         event.preventDefault();
@@ -36,7 +36,6 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
                     onChange={handleChange}
                     id='method'
                     value={formValues.method}
-                    defaultValue='GET'
                 >
                     <option value='GET'>GET</option>
                     <option value='POST'>POST</option>
