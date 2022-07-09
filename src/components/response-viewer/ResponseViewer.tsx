@@ -1,6 +1,5 @@
 import { FC, useContext, useEffect, useRef } from 'react';
 import { RequestContext } from '../../context';
-import { isAnHtmlDocument } from '../../helpers';
 import { Loading } from './loading/Loading';
 import classes from './ResponseViewer.module.scss';
 import { StatusBar } from './status-bar/StatusBar';
