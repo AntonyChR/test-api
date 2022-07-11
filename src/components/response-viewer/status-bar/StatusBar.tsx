@@ -4,16 +4,17 @@ import { Alert, useAlert } from '../../common';
 import classes from './StatusBar.module.scss';
 
 interface Props {
-    dataToDisplay: string;
+    dataToCopyToClipboard: string;
 }
-export const StatusBar: FC<Props> = ({ dataToDisplay }) => {
+
+export const StatusBar: FC<Props> = ({ dataToCopyToClipboard }) => {
     const { request } = useContext(RequestContext);
 
     const { alertState, hideAlert, alertInfo } = useAlert();
 
     function copyResponseToClipboard() {
+        navigator.clipboard.writeText(dataToCopyToClipboard);
         alertInfo('Response data copied to clipboard');
-        navigator.clipboard.writeText(dataToDisplay);
     }
 
     return (

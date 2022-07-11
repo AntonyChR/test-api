@@ -1,8 +1,10 @@
-import { FC, useContext, useEffect, useRef } from 'react';
+import { FC, useContext } from 'react';
 import { RequestContext } from '../../context';
 import { Loading } from './loading/Loading';
-import classes from './ResponseViewer.module.scss';
 import { StatusBar } from './status-bar/StatusBar';
+
+import classes from './ResponseViewer.module.scss';
+
 interface ResponseViewerProps {
     className: string;
 }
@@ -20,7 +22,7 @@ export const ResponseViewer: FC<ResponseViewerProps> = ({ className }) => {
                 <Loading />
             ) : (
                 <>
-                    <StatusBar dataToDisplay={dataToDisplay()}/>
+                    <StatusBar dataToCopyToClipboard={dataToDisplay()}/>
                     <div className={classes.dataWrapper}>
                         <pre className={classes.data}>{dataToDisplay()}</pre>
                     </div>
