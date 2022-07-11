@@ -32,26 +32,30 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         dispatch({ type: '[Request] set response', payload: r });
     }
 
-    function addRequestToHistory(r:IResponse){
-        dispatch({type: '[History] add request', payload:r})
+    function addRequestToHistory(r: IResponse) {
+        dispatch({ type: '[History] add request', payload: r });
     }
 
-    const startRequest = (url: string) =>
+    function startRequest(url: string) {
         dispatch({ type: '[Request] start', payload: url });
+    }
 
     const { runRequest, abortController } = useFetch();
+    
     function abortRequest() {
         abortController?.abort();
-        dispatch({
-            type: '[Request] cancel request',
-        });
+        dispatch({ type: '[Request] cancel request' });
     }
 
-    async function makeRequest(url:string, method:HTTPMethod) {
+    async function makeRequest(url: string, method: HTTPMethod) {
         startRequest(url);
         const response = await runRequest(url, method);
-        setResponse(response);  
-        addRequestToHistory(response);                      
+        setResponse(response);
+        addRequestToHistory(response);
+    }
+
+    function clearHistory() {
+        dispatch({type:'[History] clear history'});
     }
     return (
         <RequestContext.Provider
@@ -59,6 +63,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
                 ...state,
 
                 //methods
+                clearHistory,
                 setResponse,
                 makeRequest,
                 abortRequest,

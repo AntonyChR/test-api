@@ -4,6 +4,7 @@ export interface RequestStateMethods {
     abortRequest: Function;
     makeRequest: Function;
     setResponse: Function;
+    clearHistory: Function;
 }
 
 export interface RequestStateProperties{
