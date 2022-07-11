@@ -2,7 +2,7 @@ import { Page } from "./components";
 import { RequestProvider } from "./context";
 import './App.css'
 
-function ApiGo() {
+function ApiTest() {
     return (
         <RequestProvider>
             <Page/>
@@ -10,4 +10,4 @@ function ApiGo() {
     );
 }
 
-export default ApiGo;
+export default ApiTest;
