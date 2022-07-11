@@ -5,6 +5,8 @@
 
 ## install dependencies with npm
 
+In project path
+
 ```sh
 cd .../api-go
 
@@ -16,3 +18,8 @@ run in development mode
 ```sh
 npm run dev
 ```
+
+## To do
+- cookies
+- headers
+- authorization
