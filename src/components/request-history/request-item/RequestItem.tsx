@@ -1,6 +1,7 @@
 import { FC, useContext } from 'react';
 import { IResponse, RequestContext } from '../../../context';
 import { colors } from '../../../styles';
+import { Icon } from '../../common';
 import classes from './RequestItem.module.scss';
 
 interface Props {
@@ -11,27 +12,41 @@ export const RequestItem: FC<Props> = ({ request }) => {
     const {
         method,
         status,
-        statusText,
         url,
         responseTimeInMiliseconds,
         requestTime,
+        ok,
     } = request;
     const { setResponse } = useContext(RequestContext);
+    const icons = {
+        success: 'task_alt',
+        error: 'error',
+    };
 
-    const dataToShow = `${method}:${status} ${responseTimeInMiliseconds}ms ${statusText}`;
     return (
-        <li
-            onClick={() => setResponse(request)}
-            className={classes.item}
-            style={{backgroundColor:colors[method]}}
-        >
-            <>
-                <p title={requestTime} className={classes.dataAboutRequest}>
-                    {dataToShow}{' '}
-                    <span style={{ float: 'right' }}>{requestTime}</span>
+        <li onClick={() => setResponse(request)} className={classes.item} title={ok?'Success':'Error'}>
+            <div
+                style={{ backgroundColor: ok ? colors.bg.success : colors.bg.error }}
+                className={classes.icon}
+            >
+                <Icon
+                    icon={ok ? icons.success : icons.error}
+                    color={ok ? colors.methods.GET : colors.methods.DELETE}
+                />
+            </div>
+            <div
+                style={{ backgroundColor: colors.methods[method] }}
+                className={classes.methodColor}
+            ></div>
+            <div className={classes.info} style={{ backgroundColor: 'black' }}>
+                <p>
+                    <>
+                        <em style={{fontWeight:'bold'}}>{method}: {status}</em> - {responseTimeInMiliseconds}
+                        ms
+                    </>
                 </p>
                 <p className={classes.url}>{url}</p>
-            </>
+            </div>
         </li>
     );
 };
