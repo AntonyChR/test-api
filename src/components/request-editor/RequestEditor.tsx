@@ -1,6 +1,7 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, FormEvent, useContext, useEffect, useState } from 'react';
 import { HTTPMethod, RequestContext } from '../../context';
 import { useForm } from '../../hooks';
+import { colors } from '../../styles';
 
 import classes from './RequestEditor.module.scss';
 
@@ -16,7 +17,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
         method: HTTPMethod;
     }>({ url: '', method: 'GET' });
 
-    const onSubmit = async (event: any) => {
+    const onSend = async (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (!formValues.url) return;
         await makeRequest(formValues.url, formValues.method);
@@ -29,13 +30,14 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
         <section className={`${className} ${classes.requestEditor}`}>
             <form
                 defaultValue='GET'
-                onSubmit={onSubmit}
                 className={classes.form}
+                onSubmit={onSend}
             >
                 <select
                     onChange={handleChange}
                     id='method'
                     value={formValues.method}
+                    style={{backgroundColor:colors.methods[formValues.method]}}
                 >
                     <option value='GET'>GET</option>
                     <option value='POST'>POST</option>
