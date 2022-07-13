@@ -15,7 +15,6 @@ type time = `${number}s` | 'ever';
 export const Alert: FC<IProps> = ({
     type,
     message,
-
     timeOut = 'ever',
     controller,
     unmount,

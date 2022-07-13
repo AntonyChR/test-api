@@ -9,6 +9,7 @@ interface IconProps {
     alt?      : string;
     onClick?  : () => void;
     className?: string;
+    title?: string;
 }
 export const Icon: FC<IconProps> = ({
     alt,
@@ -18,6 +19,7 @@ export const Icon: FC<IconProps> = ({
     pointer   = false,
     onClick   = () => {},
     className = 'google-icon',
+    title = ''
 }) => {
     const iconIsImage = /https/i.test(icon);
     if (iconIsImage) {
@@ -32,6 +34,7 @@ export const Icon: FC<IconProps> = ({
                 alt={alt}
                 onClick={onClick}
                 className={className}
+                title={title}
             ></img>
         );
     }
