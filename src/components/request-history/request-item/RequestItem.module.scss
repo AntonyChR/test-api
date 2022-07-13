@@ -6,11 +6,13 @@
     overflow: hidden;
 
     display: grid;
-    grid-template-columns: 35px 5px 1fr;
+    grid-template-columns: 35px 5px 1fr 80px;
+    background-color: black;
     color: white;
 }
 
 .item:hover {
+    background-color: rgb(19, 19, 19);
 }
 
 .icon {
@@ -21,5 +23,17 @@
 
 .info{
     padding: .4rem;
+    overflow: hidden;
+}
+.url{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
