@@ -15,15 +15,17 @@ export interface RequestStateProperties{
 }
 
 export interface IResponse{
-    url          : string;
-    status       : Number | null,
-    responseData : any,
-    method       : HTTPMethod,
-    statusText: StatusText,
+    url                      : string;
+    status                   : Number | null,
+    responseData             : any,
+    method                   : HTTPMethod,
+    statusText               : StatusText,
     responseTimeInMiliseconds: Number | null,
-    requestTime: string;
+    requestTime              : string;
+    ok: boolean;
 
 }
+
 export type StatusText = 'success' | 'error' | 'canceled' | string;
 
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';

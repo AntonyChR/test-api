@@ -29,7 +29,7 @@ export const StatusBar: FC<Props> = ({ dataToCopyToClipboard }) => {
                         className={classes.copy}
                         onClick={copyResponseToClipboard}
                     >
-                        copy data response
+                        copy data
                     </span>
                 </h3>
             )}

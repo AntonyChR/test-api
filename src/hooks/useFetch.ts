@@ -43,6 +43,7 @@ export const useFetch = () => {
             responseData: data,
             responseTimeInMiliseconds,
             status: response.status,
+            ok: response.status < 400
         };
 
     }

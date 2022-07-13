@@ -20,6 +20,7 @@ const INITIAL_STATE = {
         statusText: '',
         responseTimeInMiliseconds: null,
         requestTime: '',
+        ok:false
     },
 };
 export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
