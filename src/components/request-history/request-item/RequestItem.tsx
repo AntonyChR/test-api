@@ -38,7 +38,7 @@ export const RequestItem: FC<Props> = ({ request }) => {
                 style={{ backgroundColor: colors.methods[method] }}
                 className={classes.methodColor}
             ></div>
-            <div className={classes.info} style={{ backgroundColor: 'black' }}>
+            <div className={classes.info}>
                 <p>
                     <>
                         <em style={{fontWeight:'bold'}}>{method}: {status}</em> - {responseTimeInMiliseconds}
@@ -46,6 +46,9 @@ export const RequestItem: FC<Props> = ({ request }) => {
                     </>
                 </p>
                 <p className={classes.url}>{url}</p>
+            </div>
+            <div className={classes.time}>
+                {requestTime}
             </div>
         </li>
     );
