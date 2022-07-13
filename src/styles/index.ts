@@ -1,1 +1,1 @@
-export * from './methodColors'
+export * from './colors'
