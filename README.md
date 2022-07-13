@@ -1,11 +1,9 @@
 # api-go
 
-### Project developed with react using vite
+Project developed with react using vite
 
 
 ## install dependencies with npm
-
-In project path
 
 ```sh
 cd .../api-go
@@ -13,13 +11,14 @@ cd .../api-go
 npm install
 ```
 
-run in development mode
+## run in development mode
 
 ```sh
 npm run dev
 ```
 
-## To do
-- cookies
-- headers
-- authorization
+## build for production
+
+```sh
+npm run build
+```
