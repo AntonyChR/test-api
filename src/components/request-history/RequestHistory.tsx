@@ -14,14 +14,6 @@ export const RequestHistory: FC<RequestHistoryProps> = ({ className }) => {
         <section className={`${className} ${classes.wrapper}`}>
             <div className={classes.title}>
                 <h2>History</h2>
-                {requestHistory.length > 0 && (
-                    <Icon
-                        icon='delete'
-                        pointer
-                        className={classes.delete}
-                        onClick={() => clearHistory()}
-                    />
-                )}
             </div>
             <div className={classes.listWrapper}>
                 <ul className={classes.list}>
@@ -33,6 +25,16 @@ export const RequestHistory: FC<RequestHistoryProps> = ({ className }) => {
                     ))}
                 </ul>
             </div>
+            {requestHistory.length > 0 && (
+                <Icon
+                    icon='delete'
+                    pointer
+                    className={classes.delete}
+                    onClick={() => clearHistory()}
+                    title='Clear history'
+                    size='1.5rem'
+                />
+            )}
         </section>
     );
 };
