@@ -7,7 +7,7 @@ export const Loading = () => {
     return (
         <div className={classes.wrapper}>
             <span className={classes.spinner}></span>
-            <span onClick={()=>abortRequest()}>Cancel</span>
+            <span onClick={()=>abortRequest()} className={classes.cancel}>Cancel</span>
         </div>
     );
 };
