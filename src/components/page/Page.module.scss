@@ -9,7 +9,7 @@
         "editor history"
         "viewer history"
     ;
-    grid-template-columns: 1fr 28%;
+    grid-template-columns: 1fr 30%;
     grid-template-rows: min-content 1fr;
 
     overflow: hidden;
@@ -35,4 +35,18 @@
 .responseViewer{
     @extend .common;
     grid-area: viewer;
+}
+
+
+@media (max-width: 850px) {
+    .page{
+        height: 120vh;
+        grid-template-areas: 
+        "editor"
+        "viewer"
+        "history";
+        grid-template-columns: 1fr;
+        grid-template-rows: max-content 1fr 300px;
+    }
+    
 }
