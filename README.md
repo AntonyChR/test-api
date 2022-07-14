@@ -28,3 +28,4 @@ npm run build
 - generate types from json response
 - Headers, Cookies, Body
 - Auth
+- PWA
