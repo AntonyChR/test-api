@@ -35,7 +35,7 @@ export const RequestItem: FC<Props> = ({ request }) => {
             ></div>
             <div className={classes.info}>
                 <p>
-                    <em style={{ fontWeight: 'bold' }}> {method}: {status}</em> - {responseTimeInMiliseconds}ms
+                   <><em style={{ fontWeight: 'bold' }}><>{method}: {status}</></em> - {responseTimeInMiliseconds}ms</>
                 </p>
                 <p className={classes.url}>{url}</p>
             </div>
