@@ -7,32 +7,20 @@ export const useFetch = () => {
 
     const runRequest = async (url: string, method: HTTPMethod) => {
         const newAbortController = new AbortController();
-        const signal = newAbortController.signal;
         setAbort(newAbortController);
-
-        const requestTime = getCurrentTime();
-
-        const start = performance.now();
-        const response = await fetch(url, { method, signal});
-        const end = performance.now();
-
+        const requestTime  = getCurrentTime();
+        const start        = performance.now();
+        const response     = await fetch(url, { method, signal: newAbortController.signal});
+        const end          = performance.now();
         const responseText = await response.clone().text();
-
+        const statusText   = response.statusText || (response.ok ? 'success' : 'error');
         const responseTimeInMiliseconds = Math.floor(end - start);
-
-        const statusText =
-            response.statusText || (response.ok ? 'success' : 'error');
         let data = null;
 
         try {
-            if(response.ok){
-                data = await response.json();
-            }
-            
+            if(response.ok) data = await response.json();
         } catch (error) {
-            if (data === null && responseText) {
-                data = responseText;
-            }
+            if (data === null && responseText) data = responseText;
         }
 
         return {
@@ -45,7 +33,6 @@ export const useFetch = () => {
             status: response.status,
             ok: response.status < 400
         };
-
     }
 
     return { abortController, runRequest }

@@ -11,7 +11,7 @@ interface RequestHistoryProps {
 export const RequestHistory: FC<RequestHistoryProps> = ({ className }) => {
     const { requestHistory, clearHistory } = useContext(RequestContext);
     return (
-        <section className={`${className} ${classes.wrapper}`}>
+        <section className={`${className} ${classes.wrapper}`} >
             <div className={classes.title}>
                 <h2>History</h2>
             </div>
