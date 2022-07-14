@@ -9,14 +9,8 @@ interface Props {
 }
 
 export const RequestItem: FC<Props> = ({ request }) => {
-    const {
-        method,
-        status,
-        url,
-        responseTimeInMiliseconds,
-        requestTime,
-        ok,
-    } = request;
+    const { method, status, url, responseTimeInMiliseconds, requestTime, ok } =
+        request;
     const { setResponse } = useContext(RequestContext);
     const icons = {
         success: 'task_alt',
@@ -24,11 +18,12 @@ export const RequestItem: FC<Props> = ({ request }) => {
     };
 
     return (
-        <li onClick={() => setResponse(request)} className={classes.item} title={ok?'Success':'Error'}>
-            <div
-                style={{ backgroundColor: ok ? colors.bg.success : colors.bg.error }}
-                className={classes.icon}
-            >
+        <li
+            onClick={() => setResponse(request)}
+            className={classes.item}
+            title={ok ? 'Success' : 'Error'}
+        >
+            <div className={classes.icon}>
                 <Icon
                     icon={ok ? icons.success : icons.error}
                     color={ok ? colors.methods.GET : colors.methods.DELETE}
@@ -40,16 +35,11 @@ export const RequestItem: FC<Props> = ({ request }) => {
             ></div>
             <div className={classes.info}>
                 <p>
-                    <>
-                        <em style={{fontWeight:'bold'}}>{method}: {status}</em> - {responseTimeInMiliseconds}
-                        ms
-                    </>
+                    <em style={{ fontWeight: 'bold' }}> {method}: {status}</em>{' '} - {responseTimeInMiliseconds}ms
                 </p>
                 <p className={classes.url}>{url}</p>
             </div>
-            <div className={classes.time}>
-                {requestTime}
-            </div>
+            <div className={classes.time}>{requestTime}</div>
         </li>
     );
 };

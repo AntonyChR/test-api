@@ -41,6 +41,8 @@
 @media (max-width: 850px) {
     .page{
         height: 120vh;
+        width: 100%;
+        padding: 0;
         grid-template-areas: 
         "editor"
         "viewer"
