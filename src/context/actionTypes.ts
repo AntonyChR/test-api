@@ -1,8 +1,8 @@
-import { IResponse } from "./types";
+import { IRequest } from "./types";
 
 export type RequestActionTypes = 
     | {type: '[Request] start', payload: string}
     | {type: '[Request] cancel request'}
-    | {type: '[Request] set response',   payload: IResponse}
-    | {type: '[History] add request',    payload: IResponse}
+    | {type: '[Request] set request', payload: IRequest}
+    | {type: '[History] add request', payload: IRequest}
     | {type: '[History] clear history'}

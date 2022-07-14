@@ -6,7 +6,7 @@ export function requestReducer(state: RequestStateProperties, action: RequestAct
     switch (action.type) {
         case '[Request] start':
             return { ...state, loading: true};
-        case '[Request] set response':
+        case '[Request] set request':
             return { ...state, request: action.payload, loading:false };
         case '[Request] cancel request':
             return { ...state, loading: false, request: { ...state.request, responseData: null, statusText: 'canceled' } }
@@ -14,7 +14,6 @@ export function requestReducer(state: RequestStateProperties, action: RequestAct
             return { ...state, requestHistory: [action.payload, ...state.requestHistory] };
         case '[History] clear history':
             return {...state, requestHistory:[]}
-
         default:
             return state
     }

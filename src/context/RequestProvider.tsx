@@ -3,7 +3,7 @@ import { useFetch } from '../hooks';
 import { RequestContext } from './';
 import { requestReducer } from './';
 import { RequestStateProperties } from './';
-import { HTTPMethod, IResponse } from './types';
+import { HTTPMethod, IRequest } from './types';
 
 interface RequestProviderProps {
     children: ReactNode;
@@ -29,11 +29,11 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         INITIAL_STATE as RequestStateProperties
     );
 
-    function setResponse(r: IResponse) {
-        dispatch({ type: '[Request] set response', payload: r });
+    function setRequest(r: IRequest) {
+        dispatch({ type: '[Request] set request', payload: r });
     }
 
-    function addRequestToHistory(r: IResponse) {
+    function addRequestToHistory(r: IRequest) {
         dispatch({ type: '[History] add request', payload: r });
     }
 
@@ -50,9 +50,9 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
 
     async function makeRequest(url: string, method: HTTPMethod) {
         startRequest(url);
-        const response = await runRequest(url, method);
-        setResponse(response);
-        addRequestToHistory(response);
+        const request = await runRequest(url, method);
+        setRequest(request);
+        addRequestToHistory(request);
     }
 
     function clearHistory() {
@@ -65,7 +65,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
 
                 //methods
                 clearHistory,
-                setResponse,
+                setRequest,
                 makeRequest,
                 abortRequest,
             }}

@@ -3,18 +3,18 @@ export interface RequestState extends RequestStateMethods, RequestStatePropertie
 export interface RequestStateMethods {
     abortRequest: Function;
     makeRequest: Function;
-    setResponse: Function;
+    setRequest: Function;
     clearHistory: Function;
 }
 
 export interface RequestStateProperties{
-    requestHistory: IResponse[] | [];
-    request: IResponse;
+    requestHistory: IRequest[] | [];
+    request: IRequest;
     loading:boolean;
     abortController: AbortController;
 }
 
-export interface IResponse{
+export interface IRequest{
     url                      : string;
     status                   : Number | null,
     responseData             : any,
