@@ -1,12 +1,12 @@
-# api-go
+# test-api
 
-Project developed with react using vite
+Project developed with react using [Vite](https://vitejs.dev/)
 
 
 ## install dependencies with npm
 
 ```sh
-cd .../api-go
+cd .../tes-api
 
 npm install
 ```
@@ -22,3 +22,8 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## To do
+- generate types from json response
+- Headers, Cookies, Body
+- Auth
