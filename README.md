@@ -2,12 +2,11 @@
 
 Simple and light platform to test your APIs similar to Postman or Insomnia, developed with react using [Vite](https://vitejs.dev/)
 
-<img src="./assets/screenshot_1.png" width="1000">
-
+![screenshot_1](/assets/screenshot_1.png)
 ## install dependencies with npm
 
 ```sh
-cd .../tes-api
+cd .../test-api
 
 npm install
 ```
