@@ -8,9 +8,11 @@ export const useFetch = () => {
     const runRequest = async (url: string, method: HTTPMethod) => {
         const newAbortController = new AbortController();
         setAbort(newAbortController);
+
+        const mode = url.includes('http://localhost')? 'same-origin':'no-cors';
         const requestTime  = getCurrentTime();
         const start        = performance.now();
-        const response     = await fetch(url, { method, signal: newAbortController.signal});
+        const response     = await fetch(url, { method, mode, signal: newAbortController.signal});
         const end          = performance.now();
         const responseText = await response.clone().text();
         const statusText   = response.statusText || (response.ok ? 'success' : 'error');
