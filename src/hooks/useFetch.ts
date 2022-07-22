@@ -9,7 +9,7 @@ export const useFetch = () => {
         const newAbortController = new AbortController();
         setAbort(newAbortController);
 
-        const mode = url.includes('http://localhost')? 'same-origin':'no-cors';
+        const mode = url.includes('http://localhost') ? 'no-cors':'cors';
         const requestTime  = getCurrentTime();
         const start        = performance.now();
         const response     = await fetch(url, { method, mode, signal: newAbortController.signal});
