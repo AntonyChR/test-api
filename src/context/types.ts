@@ -19,7 +19,6 @@ export interface IRequest{
     status                   : Number | null,
     responseData             : any,
     method                   : HTTPMethod,
-    statusText               : StatusText,
     responseTimeInMiliseconds: Number | null,
     requestTime              : string;
     ok: boolean;

@@ -17,10 +17,9 @@ const INITIAL_STATE = {
         status: null,
         responseData: null,
         method: 'GET',
-        statusText: '',
         responseTimeInMiliseconds: null,
         requestTime: '',
-        ok:false
+        ok: false,
     },
 };
 export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
@@ -42,7 +41,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
     }
 
     const { runRequest, abortController } = useFetch();
-    
+
     function abortRequest() {
         abortController?.abort();
         dispatch({ type: '[Request] cancel request' });
@@ -53,10 +52,11 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         const request = await runRequest(url, method);
         setRequest(request);
         addRequestToHistory(request);
+        console.clear();
     }
 
     function clearHistory() {
-        dispatch({type:'[History] clear history'});
+        dispatch({ type: '[History] clear history' });
     }
     return (
         <RequestContext.Provider

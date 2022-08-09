@@ -1,41 +1,42 @@
-import { useState } from "react"
-import { HTTPMethod } from "../context";
-import { getCurrentTime } from "../helpers";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useState } from 'react';
+import { HTTPMethod } from '../context';
+import { getCurrentTime } from '../helpers';
 
 export const useFetch = () => {
-    const [abortController, setAbort] = useState<AbortController | undefined>(undefined);
+    const [abortController, setAbort] = useState<AbortController | undefined>(
+        undefined
+    );
 
     const runRequest = async (url: string, method: HTTPMethod) => {
         const newAbortController = new AbortController();
         setAbort(newAbortController);
 
-        const mode = url.includes('http://localhost') ? 'no-cors':'cors';
-        const requestTime  = getCurrentTime();
-        const start        = performance.now();
-        const response     = await fetch(url, { method, mode, signal: newAbortController.signal});
-        const end          = performance.now();
-        const responseText = await response.clone().text();
-        const statusText   = response.statusText || (response.ok ? 'success' : 'error');
-        const responseTimeInMiliseconds = Math.floor(end - start);
-        let data = null;
+        const requestTime = getCurrentTime();
+        const start = performance.now();
+        const config: AxiosRequestConfig = {
+            url,
+            method,
+            signal: newAbortController.signal,
+            validateStatus(status) {
+                return true;
+            },
+        };
+        const response = await axios(config);
 
-        try {
-            if(response.ok) data = await response.json();
-        } catch (error) {
-            if (data === null && responseText) data = responseText;
-        }
+        const end = performance.now();
+        const responseTimeInMiliseconds = Math.floor(end - start);
 
         return {
             requestTime,
             url,
             method,
-            statusText,
-            responseData: data,
+            responseData: response.data,
             responseTimeInMiliseconds,
             status: response.status,
-            ok: response.status < 400
+            ok: response.status < 400,
         };
-    }
+    };
 
-    return { abortController, runRequest }
-}
+    return { abortController, runRequest };
+};
