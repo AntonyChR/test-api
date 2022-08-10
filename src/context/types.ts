@@ -11,7 +11,6 @@ export interface RequestStateProperties{
     requestHistory: IRequest[];
     request: IRequest;
     loading:boolean;
-    abortController: AbortController;
 }
 
 export interface IRequest{

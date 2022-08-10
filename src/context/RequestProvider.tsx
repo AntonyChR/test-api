@@ -9,7 +9,8 @@ interface RequestProviderProps {
     children: ReactNode;
 }
 
-const INITIAL_STATE = {
+const INITIAL_STATE:RequestStateProperties
+ = {
     requestHistory: [],
     loading: false,
     request: {
@@ -25,8 +26,7 @@ const INITIAL_STATE = {
 export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
     const [state, dispatch] = useReducer(
         requestReducer,
-        INITIAL_STATE as RequestStateProperties
-    );
+        INITIAL_STATE);
 
     function setRequest(r: IRequest) {
         dispatch({ type: '[Request] set request', payload: r });
