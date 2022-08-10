@@ -19,7 +19,7 @@ export const StatusBar: FC<Props> = ({ dataToCopyToClipboard }) => {
 
     return (
         <>
-            {(request.statusText !== '' && request.statusText !== 'canceled') && (
+            {request.responseData != 'Canceled' && (
                 <h3 className={classes.statusBar}>
                     <>
                         status: {request.status} | time:{' '}

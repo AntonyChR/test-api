@@ -12,9 +12,12 @@ export const ResponseViewer: FC<ResponseViewerProps> = ({ className }) => {
     const { loading, request } = useContext(RequestContext);
     const dataToDisplay = () => {
         if(request.responseData !== null){
+            if(typeof request.responseData === 'string'){
+                return request.responseData;
+            }
             return JSON.stringify(request.responseData, null, 2);
         }
-        return request.statusText;
+        return ''
     };
     return (
         <section className={`${className} ${classes.responseViewer}`}>
