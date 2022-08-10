@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { useState } from 'react';
 import { HTTPMethod } from '../context';
 import { getCurrentTime } from '../helpers';

@@ -8,7 +8,7 @@ export interface RequestStateMethods {
 }
 
 export interface RequestStateProperties{
-    requestHistory: IRequest[] | [];
+    requestHistory: IRequest[];
     request: IRequest;
     loading:boolean;
     abortController: AbortController;
