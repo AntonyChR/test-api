@@ -16,23 +16,24 @@ export const StatusBar: FC<Props> = ({ dataToCopyToClipboard }) => {
         navigator.clipboard.writeText(dataToCopyToClipboard);
         alertInfo('Response data copied to clipboard');
     }
+    if (request.responseData == 'Canceled' || request.responseData === null) {
+        return <></>;
+    }
 
     return (
         <>
-            {request.responseData != 'Canceled' && (
-                <h3 className={classes.statusBar}>
-                    <>
-                        status: {request.status} | time:{' '}
-                        {request.responseTimeInMiliseconds}ms{' '}
-                    </>
-                    <span
-                        className={classes.copy}
-                        onClick={copyResponseToClipboard}
-                    >
-                        copy data
-                    </span>
-                </h3>
-            )}
+            <h3 className={classes.statusBar}>
+                <>
+                    status: {request.status} | time:{' '}
+                    {request.responseTimeInMiliseconds}ms{' '}
+                </>
+                <span
+                    className={classes.copy}
+                    onClick={copyResponseToClipboard}
+                >
+                    copy data
+                </span>
+            </h3>
             <Alert
                 type={alertState.type}
                 message={alertState.message}

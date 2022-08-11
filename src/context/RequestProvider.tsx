@@ -17,19 +17,17 @@ const INITIAL_STATE:RequestStateProperties
     requestHistory: [],
     loading: false,
     request: {
-        url: '',
-        status: null,
+        url         : '',
+        status      : null,
         responseData: null,
-        method: 'GET',
-        responseTimeInMiliseconds: null,
+        method      : 'GET',
+        ok          : false,
         requestTime: '',
-        ok: false,
+        responseTimeInMiliseconds: null,
     },
 };
 export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
-    const [state, dispatch] = useReducer(
-        requestReducer,
-        INITIAL_STATE);
+    const [state, dispatch] = useReducer(requestReducer, INITIAL_STATE);
 
     function setRequest(r: IRequest) {
         dispatch({ type: actionTypes.Set, payload: r });
