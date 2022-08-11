@@ -1,4 +1,4 @@
-import { IRequest } from './types';
+import { HTTPMethod, IRequest } from './types';
 
 
 export enum actionTypes {
@@ -9,8 +9,12 @@ export enum actionTypes {
     ClearHistory = '[History] clear history',
 }
 
+interface StartPayload {
+    url: string;
+    method: HTTPMethod
+}
 export type RequestAction =
-    | { type: actionTypes.Start; payload: string }
+    | { type: actionTypes.Start; payload: StartPayload }
     | { type: actionTypes.Set; payload: IRequest}
     | { type: actionTypes.AddToHistory; payload: IRequest}
     | { type: actionTypes.Cancel }

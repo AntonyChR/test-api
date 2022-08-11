@@ -37,8 +37,8 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         dispatch({ type: actionTypes.AddToHistory, payload: r });
     }
 
-    function startRequest(url: string) {
-        dispatch({ type: actionTypes.Start, payload: url });
+    function startRequest(url: string, method: HTTPMethod) {
+        dispatch({ type: actionTypes.Start, payload: {url,method} });
     }
 
     const { runRequest, abortController } = useFetch();
@@ -49,11 +49,10 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
     }
 
     async function makeRequest(url: string, method: HTTPMethod) {
-        startRequest(url);
+        startRequest(url, method);
         const request = await runRequest(url, method);
         setRequest(request);
         addRequestToHistory(request);
-        console.clear();
     }
 
     function clearHistory() {

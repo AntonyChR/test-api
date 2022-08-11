@@ -18,6 +18,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
     }>({ url: '', method: 'GET' });
 
     const onSend = async (event:FormEvent<HTMLFormElement>) => {
+        console.log(formValues.method)
         event.preventDefault();
         if (!formValues.url) return;
         await makeRequest(formValues.url, formValues.method);
@@ -29,7 +30,6 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
     return (
         <section className={`${className} ${classes.requestEditor}`}>
             <form
-                defaultValue='GET'
                 className={classes.form}
                 onSubmit={onSend}
             >
