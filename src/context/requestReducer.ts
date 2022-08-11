@@ -1,18 +1,18 @@
-import { RequestActionTypes } from "./actionTypes";
+import { actionTypes, RequestAction } from "./actionTypes";
 import { RequestStateProperties } from "./types";
 
 
-export function requestReducer(state: RequestStateProperties, action: RequestActionTypes): RequestStateProperties {
+export function requestReducer(state: RequestStateProperties, action: RequestAction): RequestStateProperties {
     switch (action.type) {
-        case '[Request] start':
+        case actionTypes.Start:
             return { ...state, loading: true,request:{...state.request, url: action.payload}};
-        case '[Request] set request':
+        case actionTypes.Set:
             return { ...state, request: action.payload, loading:false };
-        case '[Request] cancel request':
+        case actionTypes.Cancel:
             return { ...state, loading: false, request: { ...state.request, responseData: 'Canceled'} }
-        case '[History] add request':
+        case actionTypes.AddToHistory:
             return { ...state, requestHistory: [action.payload, ...state.requestHistory] };
-        case '[History] clear history':
+        case actionTypes.ClearHistory:
             return {...state, requestHistory:[]}
         default:
             return state

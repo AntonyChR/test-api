@@ -1,9 +1,12 @@
-import { FC, ReactNode, useEffect, useReducer } from 'react';
+import { FC, ReactNode, useReducer } from 'react';
 import { useFetch } from '../hooks';
 import { RequestContext } from './';
 import { requestReducer } from './';
 import { RequestStateProperties } from './';
 import { HTTPMethod, IRequest } from './types';
+
+import {actionTypes} from './'
+
 
 interface RequestProviderProps {
     children: ReactNode;
@@ -29,22 +32,22 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         INITIAL_STATE);
 
     function setRequest(r: IRequest) {
-        dispatch({ type: '[Request] set request', payload: r });
+        dispatch({ type: actionTypes.Set, payload: r });
     }
 
     function addRequestToHistory(r: IRequest) {
-        dispatch({ type: '[History] add request', payload: r });
+        dispatch({ type: actionTypes.AddToHistory, payload: r });
     }
 
     function startRequest(url: string) {
-        dispatch({ type: '[Request] start', payload: url });
+        dispatch({ type: actionTypes.Start, payload: url });
     }
 
     const { runRequest, abortController } = useFetch();
 
     function abortRequest() {
         abortController?.abort();
-        dispatch({ type: '[Request] cancel request' });
+        dispatch({ type: actionTypes.Cancel });
     }
 
     async function makeRequest(url: string, method: HTTPMethod) {
@@ -56,7 +59,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
     }
 
     function clearHistory() {
-        dispatch({ type: '[History] clear history' });
+        dispatch({ type: actionTypes.ClearHistory});
     }
     return (
         <RequestContext.Provider
