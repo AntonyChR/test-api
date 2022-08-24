@@ -8,7 +8,7 @@ export const useFetch = () => {
         undefined
     );
 
-    const runRequest = async (url: string, method: HTTPMethod) => {
+    const runRequest = async (url: string, method: HTTPMethod, body = {}) => {
         const newAbortController = new AbortController();
         setAbort(newAbortController);
 
@@ -21,8 +21,13 @@ export const useFetch = () => {
             validateStatus(status) {
                 return true;
             },
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: body,
         };
-        const response = await axios(config);
+
+        const response = await axios.request(config);
 
         const end = performance.now();
         const responseTimeInMiliseconds = Math.floor(end - start);
