@@ -3,7 +3,7 @@ import { useFetch } from '../hooks';
 import { RequestContext } from './';
 import { requestReducer } from './';
 import { RequestStateProperties } from './';
-import { HTTPMethod, IRequest } from './types';
+import { HTTPMethod, IRequest } from './';
 
 import {actionTypes} from './'
 
