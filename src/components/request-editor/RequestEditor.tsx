@@ -18,7 +18,6 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
     }>({ url: '', method: 'GET' });
 
     const onSend = async (event:FormEvent<HTMLFormElement>) => {
-        console.log(formValues.method)
         event.preventDefault();
         if (!formValues.url) return;
         await makeRequest(formValues.url, formValues.method);
@@ -56,6 +55,9 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
                     Send
                 </button>
             </form>
+            <div>
+                <span>Body (json)</span>
+            </div>
         </section>
     );
 };
