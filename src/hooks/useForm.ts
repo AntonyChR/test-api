@@ -9,6 +9,8 @@ export function useForm<T>(initialState: T, onChangeLog: boolean = false): {
     const [formValues, setFormValues] = useState<T>(initialState);
 
     const handleChange = (event: any) => {
+
+        //In dev mode with onChangeLog=true you can see events in the console
         if (onChangeLog && isInDevelopment) { 
             console.log({ 
                 formValues, 
