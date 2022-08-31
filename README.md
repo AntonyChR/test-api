@@ -18,6 +18,7 @@ npm install
 ```sh
 npm run dev
 ```
+then open in your browser [http://localhost:3000](http://localhost:3000)
 
 ## build for production
 
