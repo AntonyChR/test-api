@@ -1,0 +1,13 @@
+.list{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    color: white;
+    cursor: default;
+}
+.list>li:hover{
+    text-decoration: underline;
+}
+.wrapper{
+    padding: .3rem .4rem;
+}

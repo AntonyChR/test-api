@@ -18,14 +18,13 @@ enum ModalTypes {
 export const PayloadRequestEditor = () => {
     const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
     const [modalTypeToShow, setModalTypeToShow] = useState<ModalTypes>(ModalTypes.body);
-    const selectModal = (type: ModalTypes) => {
+    const selectModal = (modalType: ModalTypes) => {
         setEditorIsOpen(true);
-        setModalTypeToShow(type);
+        setModalTypeToShow(modalType);
     };
-
     return (
         <>
-            <div>
+            <div className={classes.wrapper}>
                 <ul className={classes.list}>
                     <li onClick={() => selectModal(ModalTypes.body)}>Body</li>
                     <li onClick={() => selectModal(ModalTypes.cookies)}>
