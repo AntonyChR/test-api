@@ -2,6 +2,7 @@ import { FC, FormEvent, useContext, useEffect, useState } from 'react';
 import { HTTPMethod, RequestContext } from '../../context';
 import { useForm } from '../../hooks';
 import { colors } from '../../styles';
+import { PayloadRequestEditor } from './payload/Payload';
 
 import classes from './RequestEditor.module.scss';
 
@@ -55,9 +56,7 @@ export const RequestEditor: FC<RequestEditorProps> = ({ className }) => {
                     Send
                 </button>
             </form>
-            <div>
-                <span>Body (json)</span>
-            </div>
+            <PayloadRequestEditor/>
         </section>
     );
 };
