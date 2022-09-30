@@ -8,7 +8,7 @@ export const useFetch = () => {
         undefined
     );
 
-    const runRequest = async (url: string, method: HTTPMethod, body = {}) => {
+    const runRequest = async (url: string, method: HTTPMethod, body = {}, sendCookies=false) => {
         const newAbortController = new AbortController();
         setAbort(newAbortController);
 
@@ -25,6 +25,7 @@ export const useFetch = () => {
                 'Content-Type': 'application/json',
             },
             data: body,
+            withCredentials: sendCookies
         };
 
         const response = await axios.request(config);
