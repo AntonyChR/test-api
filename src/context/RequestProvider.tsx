@@ -1,18 +1,19 @@
 import { FC, ReactNode, useReducer } from 'react';
+import {clearCookies, saveCookies} from '../helpers/cookies';
 import { useFetch } from '../hooks';
 import { RequestContext } from './';
 import { requestReducer } from './';
 import { RequestStateProperties } from './';
 import { HTTPMethod, IRequest } from './';
 
-import {actionTypes} from './'
+import {actionTypes, ICookies} from './'
 
 
 interface RequestProviderProps {
     children: ReactNode;
 }
 
-const INITIAL_STATE:RequestStateProperties
+export const INITIAL_STATE:RequestStateProperties
  = {
     requestHistory: [],
     loading: false,
@@ -23,6 +24,10 @@ const INITIAL_STATE:RequestStateProperties
         method      : 'GET',
         ok          : false,
         requestTime: '',
+        cookies:{
+            send: true,
+            values: [{ cookieKey_0: '', cookieValue_0: '' }],
+        },
         responseTimeInMiliseconds: null,
     },
 };
@@ -48,11 +53,19 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
         dispatch({ type: actionTypes.Cancel });
     }
 
+    function addCookies(c: ICookies){
+        dispatch({type:actionTypes.AddCookies, payload: c})
+    }
+
     async function makeRequest(url: string, method: HTTPMethod) {
+        if(state.request.cookies.send){
+            saveCookies(state.request.cookies.values)
+        }
         startRequest(url, method);
-        const request = await runRequest(url, method);
-        setRequest(request);
-        addRequestToHistory(request);
+        const reponseData = await runRequest(url, method,{},state.request.cookies.send);
+        setRequest({...state.request, ...reponseData});
+        addRequestToHistory({...state.request, ...reponseData});
+        clearCookies(state.request.cookies.values)
     }
 
     function clearHistory() {
@@ -68,6 +81,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
                 setRequest,
                 makeRequest,
                 abortRequest,
+                addCookies
             }}
         >
             {children}

@@ -1,10 +1,11 @@
-import { HTTPMethod, IRequest } from './types';
+import { ICookies, HTTPMethod, IRequest } from './types';
 
 
 export enum actionTypes {
     Start        = '[Request] start',
     Cancel       = '[Request] cancel request',
     Set          = '[Request] set request',
+    AddCookies   = '[Request] add cookies',
     AddToHistory = '[History] add request',
     ClearHistory = '[History] clear history',
 }
@@ -19,3 +20,4 @@ export type RequestAction =
     | { type: actionTypes.AddToHistory; payload: IRequest}
     | { type: actionTypes.Cancel }
     | { type: actionTypes.ClearHistory}
+    | { type: actionTypes.AddCookies; payload: ICookies}

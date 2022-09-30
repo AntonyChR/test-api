@@ -14,6 +14,8 @@ export function requestReducer(state: RequestStateProperties, action: RequestAct
             return { ...state, requestHistory: [action.payload, ...state.requestHistory] };
         case actionTypes.ClearHistory:
             return {...state, requestHistory:[]}
+        case actionTypes.AddCookies:
+            return {...state, request:{...state.request, cookies: action.payload}}
         default:
             return state
     }
