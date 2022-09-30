@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const PATH = './docs/index.html';
+const INDEX_HTML_PATH = './docs/index.html';
 
 console.log('[POSTBUILD]: Formating index.html');
 fs.readFile(PATH, 'utf-8', (error, data) => {
@@ -9,8 +9,8 @@ fs.readFile(PATH, 'utf-8', (error, data) => {
         return;
     }
     const result = data.replace(/="\//g, '="./');
-    
-    fs.writeFile(PATH, result, 'utf-8', (error) => {
+
+    fs.writeFile(INDEX_HTML_PATH, result, 'utf-8', (error) => {
         console.log(error);
     });
 });
