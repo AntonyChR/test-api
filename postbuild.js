@@ -3,7 +3,7 @@ const fs = require('fs');
 const INDEX_HTML_PATH = './docs/index.html';
 
 console.log('[POSTBUILD]: Formating index.html');
-fs.readFile(PATH, 'utf-8', (error, data) => {
+fs.readFile(INDEX_HTML_PATH, 'utf-8', (error, data) => {
     if (error) {
         console.log(error);
         return;
