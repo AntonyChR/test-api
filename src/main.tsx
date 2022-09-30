@@ -4,7 +4,7 @@ import ApiTest from './api-test'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <ApiTest />
-  </React.StrictMode>
+  //</React.StrictMode>
 )
