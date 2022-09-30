@@ -5,6 +5,7 @@ export enum actionTypes {
     Start        = '[Request] start',
     Cancel       = '[Request] cancel request',
     Set          = '[Request] set request',
+    SetBody      = '[Request] set body content',
     AddCookies   = '[Request] add cookies',
     AddToHistory = '[History] add request',
     ClearHistory = '[History] clear history',
@@ -21,3 +22,4 @@ export type RequestAction =
     | { type: actionTypes.Cancel }
     | { type: actionTypes.ClearHistory}
     | { type: actionTypes.AddCookies; payload: ICookies}
+    | { type: actionTypes.SetBody; payload: any}

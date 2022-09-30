@@ -6,6 +6,7 @@ export interface RequestStateMethods {
     setRequest: (r: IRequest)=>void;
     clearHistory: ()=>void;
     addCookies: (c: ICookies)=>void;
+    setBody: (body:any)=>void
 }
 
 export interface RequestStateProperties{
@@ -22,6 +23,7 @@ export interface IRequest{
     responseTimeInMiliseconds: Number | null;
     requestTime              : string;
     cookies                  : ICookies;
+    body                     :any;
     ok: boolean;
 }
 

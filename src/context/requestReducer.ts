@@ -16,6 +16,8 @@ export function requestReducer(state: RequestStateProperties, action: RequestAct
             return {...state, requestHistory:[]}
         case actionTypes.AddCookies:
             return {...state, request:{...state.request, cookies: action.payload}}
+        case actionTypes.SetBody:
+            return {...state, request:{...state.request, body: action.payload}}
         default:
             return state
     }

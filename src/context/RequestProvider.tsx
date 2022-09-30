@@ -28,6 +28,7 @@ export const INITIAL_STATE:RequestStateProperties
             send: true,
             values: [{ cookieKey_0: '', cookieValue_0: '' }],
         },
+        body:{key:"value"},
         responseTimeInMiliseconds: null,
     },
 };
@@ -62,10 +63,14 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
             saveCookies(state.request.cookies.values)
         }
         startRequest(url, method);
-        const reponseData = await runRequest(url, method,{},state.request.cookies.send);
+        const reponseData = await runRequest(url, method,state.request.body,state.request.cookies.send);
         setRequest({...state.request, ...reponseData});
         addRequestToHistory({...state.request, ...reponseData});
         clearCookies(state.request.cookies.values)
+    }
+
+    function setBody(body:any){
+        dispatch({type:actionTypes.SetBody, payload:body})
     }
 
     function clearHistory() {
@@ -81,7 +86,8 @@ export const RequestProvider: FC<RequestProviderProps> = ({ children }) => {
                 setRequest,
                 makeRequest,
                 abortRequest,
-                addCookies
+                addCookies,
+                setBody
             }}
         >
             {children}
